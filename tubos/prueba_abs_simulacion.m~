@@ -7,20 +7,24 @@ prefijo2 = 'paredesh';
 
 %% Inicializa los datos de los rayos que entran
 load datos_ini.mat
+nt = 300; % numero de tubos
+num_config = 100; % numero de configuraciones
+contador_abs = zeros(num_config, nt + 6);
+configuraciones = zeros(num_config, nt);
 
+% Para diferentes configuraciones aleatorias
+for configuracion = 1:num_config
 
-%% Genera la información de los tubos y se agrega a N
-rad = .05; %Radio de los tubos en metros
-numt = 300; %numero de tubos
-ct = genera_tubos(pared, numt, rad); 
-Nt = [N; zeros(size(ct,1),3)]; %se agregan una posicion en la matriz N para cada tubo  
+    % Genera la información de los tubos y se agrega a N
+    ct = genera_tubos(pared, nt, 0.05); % nt tubos de radio 0.05 
+    Nt = [N; zeros(size(ct,1),3)]; %se agregan una posicion en la matriz N para cada tubo  
 
-[con_p, P_a] = simulador_rayos(pared, Nt, Pp_1, rayo1, ct );
+    % Se realiza la simulacion
+    [con_p, P_a] = simulador_rayos(pared, Nt, Pp_1, rayo1, ct );
 
-%% Extrae información útil
-
-
-con_p1 = con_p(1,7:size(con_p,2));
+    % Se guardan las variables importantes
+    contador_abs(con)
+    
 
 con_p2 = [];
 for c3 = 1:(size(con_p,2)-6);
